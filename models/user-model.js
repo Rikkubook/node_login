@@ -3,7 +3,7 @@ const userSchema = new mongoose.Schema({
   name:{
     type: String,
     require: true,
-    minLength: 6,
+    minLength: 2,
     maxLength: 255,
   },
   googleID:{
@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
   },
   //Local Loging
   email:{
-    type: Strung
+    type: String
   },
   password:{
     type: String,
