@@ -6,6 +6,9 @@
   </head>
   <body>
     <%- include ("partials/nav") %>
-    <h1>welcome to profile page</h1>
+    <h1>welcome to <%= user.name %> page</h1>
+    <img src="<%= user.thumbnail%>" alt="">
+    <p><%= user.googleID %></p>
+    <p><%= user.date %></p>
   </body>
 </html>

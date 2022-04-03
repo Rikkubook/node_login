@@ -2,14 +2,23 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const User = require("../models/user-model");
 
-passport.serializeUser(function(user, done) {
+
+// req.user
+// req.logout()
+// req.isAuthenticated()
+
+passport.serializeUser(function(user, done) { // create Cookies
   console.log('serializeUser user now')
   done(null, user._id); // 撈mongoDB的_id
 });
 
-// passport.deserializeUser(function(user, done) {
-//   done(null, user);
-// });
+passport.deserializeUser(function(_id, done) {
+  console.log('deserializeUser user now')
+  User.findById({_id}).then((user) =>{
+    console.log("Found users.")
+    done(null, user);
+  })
+});
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CONNECT_ID,
@@ -25,7 +34,8 @@ passport.use(new GoogleStrategy({
         new User({
           name: profile.displayName,
           googleID: profile.id,
-          thumbnail: profile.photos[0].value
+          thumbnail: profile.photos[0].value,
+          email: profile.emails[0].value
         }).save().then((newUser)=>{
           console.log("New user exists");
           done(null, newUser);
