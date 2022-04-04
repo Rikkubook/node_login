@@ -8,6 +8,15 @@ router.get("/login",(req,res)=>{
   res.render("login",{user: req.user});
 })
 
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/auth/login",
+    failureFlash: "Wrong email or password.",
+  }),(req, res) => {
+    res.redirect("/profile")
+  }
+);
 router.get("/signup",(req,res)=>{
   res.render("signup",{user: req.user});
 })

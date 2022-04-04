@@ -1,7 +1,8 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const User = require("../models/user-model");
-
+const LocalStrategy = require('passport-local')
+const bcrypt = require("bcrypt"); //加密
 
 // req.user
 // req.logout()
@@ -20,6 +21,29 @@ passport.deserializeUser(function(_id, done) {
   })
 });
 
+passport.use(
+  new LocalStrategy((username, password,done) => {
+  console.log(username, password);
+  User.findOne({email: username})
+  .then(async (user) =>{
+    if (!user) {
+      return done(null, false); //使用者不存在 則不用驗證
+    }
+    await bcrypt.compare(password, user.password, function(error, result){
+      if(error){
+        return done(null, false); //使用者不存在 則不用驗證
+      }
+      if( !result ){
+        return  done(null, false);
+      }else{
+        return done(null, user);
+      }
+    })
+  })
+  .catch(error =>{
+    return done(null, false);
+  })
+}))
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CONNECT_ID,
   clientSecret: process.env.GOOGLE_CONNECT_SECRET,
