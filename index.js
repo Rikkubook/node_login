@@ -24,6 +24,7 @@ mongoose.connect(process.env.DB_CONNECT,{
 })
 
 //middleware
+app.set('views', './views'); // 設定視圖目錄
 app.set("view engine","ejs")
 app.use(express.json())
 app.use(express.urlencoded({extended: true})) // 可取代掉 bodyParser
