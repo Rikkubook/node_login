@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport');
-
+const path = require('path');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -12,7 +12,17 @@ require("./config/passport")
 
 // const cookieSession = require("cookie-session")
 const session = require("express-session")
+const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require("connect-flash")
+
+const store = new MongoDBStore({
+  uri: process.env.DB_CONNECT,
+  collection: 'mySessions'
+});
+
+store.on('error', function(error) {
+  console.log(error);
+});
 
 mongoose.connect(process.env.DB_CONNECT,{
   useNewUrlParser: true, //解析MongoDB連接字符串
@@ -24,8 +34,8 @@ mongoose.connect(process.env.DB_CONNECT,{
 })
 
 //middleware
-app.set('views', './views'); // 設定視圖目錄
-app.set("view engine","ejs")
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 app.use(express.json())
 app.use(express.urlencoded({extended: true})) // 可取代掉 bodyParser
 
@@ -34,7 +44,9 @@ app.use(express.urlencoded({extended: true})) // 可取代掉 bodyParser
 app.use(session({
   secret: process.env.SECRET, // ID cookies
   resave: false, //是否每次請求都重新保存
-  saveUninitialized: true // 是否新的初始化
+  saveUninitialized: true, // 是否新的初始化
+  store: store,
+  cookie: { secure: 'auto', httpOnly: true, maxAge: 86400000 } // 例子配置
 }))
 
 app.use(passport.initialize()) //store cookie
