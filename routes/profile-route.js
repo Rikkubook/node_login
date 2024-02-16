@@ -1,9 +1,8 @@
 const router = require("express").Router();
-const passport = require("passport");
 const Post = require("../models/post-model")
 
 const authCheck = (req, res, next) => { //middleware
-  console.log(req.user)
+  console.log('驗證登入')
   if(!req.isAuthenticated()) {
     res.redirect("/auth/login")
   }else{

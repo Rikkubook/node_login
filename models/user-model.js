@@ -6,14 +6,14 @@ const userSchema = new mongoose.Schema({
     minLength: 2,
     maxLength: 255,
   },
-  googleID:{
+  googleID:{ // gmail登入的ID
     type: String,
   },
   date:{
     type: Date,
     default: Date.now,
   },
-  thumbnail:{
+  thumbnail:{ // gmail登入的縮圖
     type: String
   },
   //Local Loging
