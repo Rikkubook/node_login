@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>學生資訊</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+  <h1>學生資訊 (修改)</h1>
+  <form action="/students/studentEdit/<%= student.id %>" method="post">
+    <table class="studentsPageTable">
+      <thead>
+        <tr>
+          <th colspan="2">學生資訊</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>名稱</td>
+          <td><%= student.name %></td>
+        </tr>
+        <tr>
+          <td>信箱</td>
+          <td><%= student.email %></td>
+        </tr>
+        <tr>
+          <td>
+            <label for="age">年紀</label>
+          </td>
+          <td>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              placeholder="<%= student.age %>"
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="major">主修</label>
+          </td>
+          <td>
+            <input
+              type="text"
+              id="major"
+              name="major"
+              placeholder="<%= student.major %>"
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="major">獎學金(主修)</label>
+          </td>
+          <td>
+            <input
+              type="number"
+              id="merit"
+              name="merit"
+              placeholder="<%= student.scholarship?.merit %>"
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="other">獎學金(其他)</label>
+          </td>
+          <td>
+            <input
+              type="number"
+              id="other"
+              name="other"
+              placeholder="<%= student.scholarship?.other %>"
+            >
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">
+            <button class="btn" type="submit"> 送出</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </form>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>學生資訊</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+  <h1>錯誤頁面</h1>
+  <% if (errorMessage && errorMessage.length > 0) { %>
+  <div class="error-card" >
+    <%- include("errorTemplate") %>
+  </div>
+  <% } %>
+  <a class="link" href="/students/login">請重新登入</a>
+</body>
+</html>

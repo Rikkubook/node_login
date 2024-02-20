@@ -38,7 +38,13 @@ class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light"
         <a class="nav-link" href="/profile/post">Post</a>
       </li>
       <% } %>
+      <% if (user?.identity === 'Teacher') { %>
+      <li class="nav-item">
+        <a class="nav-link" href="/students/studentsList">StudentList</a>
+      </li>
+      <% } %>
     </ul>
+
   </div>
 </div>
 </nav>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include ("../partials/header") %>
+  <title>管理列表</title>
+</head>
+<body>
+  <%- include ("../partials/nav") %>
+  <main style="padding: 3rem">
+    <h1 class="fw-bold">管理列表</h1>
+    <table class="table" style="max-width: 500px;">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">名稱</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% students.forEach(student => { %>
+        <tr>
+          <th scope="row"><%= student.name %></th>
+          <td class="text-center">
+            <a class="btn btn-primary" href="/students/studentsList/<%= student.id %>">
+              查看資料
+            </a>
+          </td>
+          <td class="text-center">
+            <a class="btn btn-primary" href="/students/studentDelete/<%= student.id %>">
+              刪除資料
+            </a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <%- include ("partials/header") %>
@@ -11,13 +11,7 @@
         <%- include("partials/message")%>
         <div class="form-group">
           <label for="exampleUsername">Username</label>
-          <input
-            name="name"
-            type="text"
-            class="form-control"
-            id="exampleUsername"
-            required
-          />
+          <input name="name" type="text" class="form-control" id="exampleUsername" required />
           <small class="form-text text-muted">Enter Full Name here</small>
         </div>
         <br />
@@ -47,6 +41,28 @@
             name="password"
             required
           />
+        </div>
+        <br />
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="identity"
+            id="Student"
+            value="Student"
+            checked
+          />
+          <label class="form-check-label" for="Student"> Student </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="identity"
+            id="Teacher"
+            value="Teacher"
+          />
+          <label class="form-check-label" for="Teacher"> Teacher</label>
         </div>
         <br />
         <button type="submit" class="btn btn-primary">Submit</button>
