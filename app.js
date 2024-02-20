@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 
-const authRoute = require("./routes/auth-route");
-const profileRoute = require("./routes/profile-route");
+const authRoute = require("./routes/auth");
+const profileRoute = require("./routes/profile");
 require("./config/passport")
 
 // const cookieSession = require("cookie-session")

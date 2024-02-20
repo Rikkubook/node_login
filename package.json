@@ -1,15 +1,18 @@
 {
-  "name": "p5",
+  "name": "node_login",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "bson": "^6.3.0",
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^5.0.0",
     "cookie-session": "^2.0.0",
@@ -18,9 +21,13 @@
     "express": "^4.17.3",
     "express-session": "^1.18.0",
     "mongoose": "^6.2.7",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.22",
     "passport": "^0.5.2",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "3.2.5"
   }
 }
