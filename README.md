@@ -13,3 +13,17 @@
   儲存一次性的訊息（flash訊息）。 常用於登入錯誤、表單提交訊息等場景。
 - validator
   進行驗證
+
+## 描述
+
+當註冊即可登入，並且有座 middleware 控管
+
+- 學生登入
+  - 個人頁 /profile
+  - 個人頁 /profile/post
+- 老師登入
+  - 學生列表畫面 /studentsList
+  - 學生資料新增 /studentInsert/:id
+  - 學生編輯畫面 /studentEdit/:id
+  - 學生呈現畫面 /studentPage/:id
+  - 學生刪除畫面 /studentDelete/:id

@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const { authLogin, isTeacher } = require('../service/auth');
+const { authLogin, isTeacher } = require('../middleware/auth');
 const { studentViewControl } = require('../controllers/studentControllers');
 
 // 學生列表畫面
 router.get('/studentsList', authLogin, isTeacher, studentViewControl.getStudentsList);
 // 個人資料畫面
-router.get('/studentsList/:id', isTeacher, studentViewControl.getStudent);
+router.get('/studentsList/:id', authLogin, isTeacher, studentViewControl.getStudent);
 // 個人新增畫面
-router.get('/studentInsert/:id', isTeacher, studentViewControl.getStudentInsert);
+router.get('/studentInsert/:id', authLogin, isTeacher, studentViewControl.getStudentInsert);
 // 個人編輯畫面
-router.get('/studentEdit/:id', isTeacher, studentViewControl.getStudentEdit);
+router.get('/studentEdit/:id', authLogin, isTeacher, studentViewControl.getStudentEdit);
 // 個人呈現畫面
-router.get('/studentPage/:id', isTeacher, studentViewControl.getStudentPage);
+router.get('/studentPage/:id', authLogin, isTeacher, studentViewControl.getStudentPage);
 // 個人刪除畫面
-router.get('/studentDelete/:id', isTeacher, studentViewControl.getStudentDelete);
+router.get('/studentDelete/:id', authLogin, isTeacher, studentViewControl.getStudentDelete);
 // 錯誤畫面
 router.get('/errorPage', studentViewControl.getErrorPage);
 

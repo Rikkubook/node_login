@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authControl = require('../controllers/authControllers');
-const { passLogin, passGoogle, passGoogleRedirect } = require('../service/passport');
+const { passLogin, passGoogle, passGoogleRedirect } = require('../middleware/passport');
 
 router.get('/login', authControl.getLogin);
 

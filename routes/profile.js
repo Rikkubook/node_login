@@ -1,21 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const postControllers = require('../controllers/postControllers');
+const { authLogin } = require('../middleware/auth');
 
-const authCheck = (req, res, next) => {
-  //middleware
-  console.log('驗證登入');
-  if (!req.isAuthenticated()) {
-    res.redirect('/auth/login');
-  } else {
-    next();
-  }
-};
+router.get('/', authLogin, postControllers.getProfile);
 
-router.get('/', authCheck, postControllers.getProfile);
+router.get('/post', authLogin, postControllers.getProfilePost);
 
-router.get('/post', authCheck, postControllers.getProfilePost);
-
-router.post('/post', authCheck, postControllers.postProfilePost);
+router.post('/post', authLogin, postControllers.postProfilePost);
 
 module.exports = router;
