@@ -15,6 +15,7 @@ router.get('/logout', authControl.logout);
 
 router.get('/google', passGoogle);
 
+// https://node-login-beta.vercel.app/auth/google/redirect
 router.get('/google/redirect', passGoogleRedirect, authControl.googleRedirect);
 
 module.exports = router;

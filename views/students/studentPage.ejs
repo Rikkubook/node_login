@@ -1,53 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>學生資訊</title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-</head>
-<body>
-  <h1>學生內頁</h1>
-  <table class="studentsPageTable">
-    <thead>
-      <tr>
-        <th colspan="2">學生資訊</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>名稱</td>
-        <td><%= student.name %></td>
-      </tr>
-      <tr>
-        <td>信箱</td>
-        <td><%= student.email %></td>
-      </tr>
-      <tr>
-        <td>年紀</td>
-        <td><%= student.age %></td>
-      </tr>
-      <tr>
-        <td>主修</td>
-        <td><%= student.major %></td>
-      </tr>
-      <tr>
-        <td>獎學金(主修)</td>
-        <td><%= student.scholarship?.merit %></td>
-      </tr>
-      <tr>
-        <td>獎學金(其他)</td>
-        <td><%= student.scholarship?.other %></td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="2">
-          <a class="btn" href="/students/studentEdit/<%= student.id %>"> 修改</a>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
-</body>
+  <head>
+    <%- include ("../partials/header") %>
+    <title>學生資訊</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <%- include ("../partials/nav") %>
+    <main style="padding: 3rem">
+      <h1 class="fw-bold">學生內頁</h1>
+      <table class="table" style="max-width: 500px">
+        <thead>
+          <tr class="table-primary">
+            <th colspan="2">學生資訊</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>名稱</td>
+            <td><%= student.name %></td>
+          </tr>
+          <tr>
+            <td>信箱</td>
+            <td><%= student.email %></td>
+          </tr>
+          <tr>
+            <td>年紀</td>
+            <td><%= student.age %></td>
+          </tr>
+          <tr>
+            <td>主修</td>
+            <td><%= student.major %></td>
+          </tr>
+          <tr>
+            <td>獎學金(主修)</td>
+            <td><%= student.scholarship?.merit %></td>
+          </tr>
+          <tr>
+            <td>獎學金(其他)</td>
+            <td><%= student.scholarship?.other %></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">
+              <a class="btn btn-primary" href="/students/studentEdit/<%= student.id %>"> 修改</a>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </main>
+  </body>
 </html>

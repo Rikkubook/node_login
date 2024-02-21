@@ -1,95 +1,5 @@
 const User = require('../models/userModel');
 const Student = require('../models/studentModel');
-const bcrypt = require('bcrypt'); //加密
-const validator = require('validator');
-
-const memberControl = {
-  getSignup: async (req, res) => {
-    const errorMessage = req.flash('error');
-    res.render('signup', { errorMessage });
-  },
-  postSignup: async (req, res) => {
-    try {
-      const data = req.body;
-      const { email } = data;
-      if (!data.name) {
-        throw '使用者名稱不為空'; // 會丟到catch的error
-      } else if (!data.email) {
-        throw 'Email不為空';
-      } else if (!data.password) {
-        throw '密碼不為空';
-      }
-
-      if (!validator.isLength(data.name, { min: 2 })) {
-        throw '暱稱兩字以上';
-      }
-      if (!validator.isLength(data.password, { min: 8 })) {
-        throw '密碼不可小於 8 碼';
-      }
-
-      let findUser = await User.findOne({ email });
-      if (findUser) {
-        throw '已有使用者';
-      }
-
-      data.password = await bcrypt.hash(data.password, 3);
-
-      await User.create({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      });
-
-      req.session.isVerify = true;
-      res.redirect(`/students/studentsList`);
-    } catch (error) {
-      // errorHandler(res,error,400)
-      req.flash('error', error);
-      res.redirect('/students/signup');
-    }
-  },
-  getLogin: async (req, res) => {
-    const errorMessage = req.flash('error');
-    res.render('login', { errorMessage });
-  },
-  postLogin: async (req, res) => {
-    try {
-      const data = req.body;
-      if (!data.email) {
-        throw 'Email不為空';
-      } else if (!data.password) {
-        throw '密碼不為空';
-      }
-
-      const user = await User.findOne({ email: data.email }).select('+password'); // 為了要把預設不顯示的取出，添加+
-      if (user) {
-        // 密碼驗證
-        const result = await comparePasswords(data.password, user.password);
-        if (result) {
-          req.session.isVerify = true;
-          res.redirect(`/students/studentsList`);
-        } else {
-          throw '密碼驗證不相符';
-        }
-      } else {
-        throw '尚未註冊';
-      }
-
-      async function comparePasswords(plainPassword, hashedPassword) {
-        try {
-          const result = await bcrypt.compare(plainPassword, hashedPassword);
-          return result;
-        } catch (error) {
-          console.error('密碼比對失敗:', error);
-          throw error;
-        }
-      }
-    } catch (error) {
-      req.flash('error', error);
-      res.redirect('/students/login');
-    }
-  },
-};
 
 const studentViewControl = {
   getStudentsList: async (req, res) => {
@@ -130,7 +40,7 @@ const studentViewControl = {
         name: userData.name,
         email: userData.email,
       };
-      res.render('students/studentInsert', { student: data });
+      res.render('students/studentInsert', { student: data, user: req.user });
     } catch (error) {
       req.flash('error', error);
       res.redirect('/students/errorPage');
@@ -149,7 +59,7 @@ const studentViewControl = {
         major: userInfo.major,
         scholarship: userInfo.scholarship,
       };
-      res.render('students/studentEdit', { student: data });
+      res.render('students/studentEdit', { student: data, user: req.user });
     } catch (error) {
       req.flash('error', error);
       res.redirect('/students/errorPage');
@@ -168,7 +78,7 @@ const studentViewControl = {
         major: userInfo.major,
         scholarship: userInfo.scholarship,
       };
-      res.render('students/studentPage', { student: data });
+      res.render('students/studentPage', { student: data, user: req.user });
     } catch (error) {
       req.flash('error', error);
       res.redirect('/students/errorPage');
@@ -194,7 +104,7 @@ const studentViewControl = {
     if (errorMessage[0]?.message) {
       errorMessage = errorMessage[0]?.message;
     }
-    res.render('students/errorPage', { errorMessage });
+    res.render('students/errorPage', { errorMessage, user: req.user });
   },
   postStudentInsert: async (req, res) => {
     try {
@@ -249,4 +159,4 @@ const studentViewControl = {
   },
 };
 
-module.exports = { memberControl, studentViewControl };
+module.exports = { studentViewControl };

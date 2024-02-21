@@ -1,17 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authLogin, isTeacher } = require('../service/auth');
-const { memberControl, studentViewControl } = require('../controllers/studentControllers');
-
-// 註冊畫面
-router.get('/signup', memberControl.getSignup);
-// 註冊API
-router.post('/signup', memberControl.postSignup);
-
-// 登入畫面
-router.get('/login', memberControl.getLogin);
-// 登入API
-router.post('/login', memberControl.postLogin);
+const { studentViewControl } = require('../controllers/studentControllers');
 
 // 學生列表畫面
 router.get('/studentsList', authLogin, isTeacher, studentViewControl.getStudentsList);
